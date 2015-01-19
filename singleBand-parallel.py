@@ -1,7 +1,6 @@
 from __future__ import print_function, division
 import os
 import re
-
 from astropy.io import fits
 from IPython import parallel
 
