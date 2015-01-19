@@ -25,7 +25,7 @@ echo ------------------------------------------------------
 export PYTHONPATH=$SCRIPTDIR:$PYTHONPATH
 
 cd $VPHASDIR
-python $SCRIPTDIR/vphas-bandmerge/singleBand-parallel.py
+python $SCRIPTDIR/bandmerge/singleBand-parallel.py
 
 echo ------------------------------------------------------
 echo Job ends
