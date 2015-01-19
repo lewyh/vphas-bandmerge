@@ -44,7 +44,7 @@ if concat == 'u':
     suffix = 'blu'
 
 # create output filename
-outfn = "{0}single/{1}-{2}-{3}-{4}-{5}.fits".format(VPHASDIR, obj, obsdate, suffix, filt, str(expno))
+outfn = "{0}/single/{1}-{2}-{3}-{4}-{5}.fits".format(VPHASDIR, obj, obsdate, suffix, filt, str(expno))
 # bail out if output file already exists
 if os.path.exists(outfn):
     print "File already exists. Bailing out on {0}".format(sys.argv[1])

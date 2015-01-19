@@ -17,7 +17,7 @@ def convert(toconvert):
     SCRIPTDIR = os.environ['SCRIPTDIR']
     d, f = toconvert
     print(toconvert)
-    subprocess.call("python {1}convert.py {2}/{3}".format(python, scripts, d, f), shell=True)
+    subprocess.call("python {1}/convert.py {2}/{3}".format(python, scripts, d, f), shell=True)
     return
 
 
@@ -35,7 +35,7 @@ toconvert = []
 for d in sorted(os.listdir(VPHASDIR)):
     if re.match("[0-9]{6}", d) is not None:
         print("Working on {0}".format(d))
-        path = "{0}{1}/{2}".format(VPHASDIR, d, 'catalogues')
+        path = "{0}/{1}/{2}".format(VPHASDIR, d, 'catalogues')
         if os.path.isdir(path):
             blacklistfn = open("{0}/../blacklist".format(path), 'r')
             blacklist = blacklistfn.read().splitlines()
