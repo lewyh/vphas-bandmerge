@@ -3,38 +3,23 @@
 # information to the table while also selecting only a subset of the
 # input columns for the output.
 # ---------------------------------------------------------------------
-import sys
-#fn = (sys.argv[1]).split('/')[-1]
-#sys.stdout = open("/car-data/hfarnhill/stdout-convert-{0}".format(fn), "w")                                                                                                                                 
-#sys.stderr = open("/car-data/hfarnhill/stderr-convert-{0}".format(fn), "w") 
-#print("WORKING!")
+
+
 import math
-import os.path
-#import pyfits
+import os
 from astropy.io import fits
 import numpy
 import sys
 
-version = "0.2 12.Sep.2012"
+version = "0.3 19.Jan.2015"
 
-if os.uname()[1] == 'uhppc27.herts.ac.uk':
-    scripts = '/media/Hitachi/v1.0/imapScripts/'
-    basedir = '/media/Hitachi/v1.0/'
-    subdir = ''
-    python = '/local/home/hfarnhill/Software/epd-7.3-2-rh5-x86_64/bin/python'
-    nproc = 3
-elif os.uname()[1].startswith('node') or os.uname()[1].startswith('sandbox'):
-    scripts = '/home/hfarnhill/vphas-bandmerge/'
-    basedir = '/car-data/hfarnhill/vphas/'
-    subdir = 'catalogues'
-    python = '/home/hfarnhill/epd-7.3-2-rh5-x86_64/bin/python'
-    nproc = 8
-else:
-    python = 'python'
-    nproc = 1
+VPHASDIR = os.environ['VPHASDIR']
 
 # open the FITS file specified on the command line
 f = fits.open(sys.argv[1])
+#sys.stdout = open("/car-data/hfarnhill/stdout-convert-{0}".format(fn), "w")                                                                                                                         
+#sys.stderr = open("/car-data/hfarnhill/stderr-convert-{0}".format(fn), "w") 
+
 # get primary header information necessary to create filename
 obj = f[0].header["OBJECT"].rstrip()
 #mjd=float(f[0].header["MJD-OBS"])
@@ -59,13 +44,11 @@ if concat == 'u':
     suffix = 'blu'
 
 # create output filename
-outfn = "/car-data/hfarnhill/vphas/single/" + obj + "-" + obsdate + "-" + suffix + "-" + filt + "-" + str(
-    expno) + ".fits"
+outfn = "{0}single/{1}-{2}-{3}-{4}-{5}.fits".format(VPHASDIR, obj, obsdate, suffix, filt, str(expno))
 # bail out if output file already exists
 if os.path.exists(outfn):
-    print "File already exists. Bailing out on " + sys.argv[1]
+    print "File already exists. Bailing out on {0}".format(sys.argv[1])
     exit()
-#print "converting "+sys.argv[1]+" to "+outfn
 
 # get additional primary header information
 et = float(f[0].header["EXPTIME"])
@@ -74,14 +57,14 @@ ame = float(f[0].header["HIERARCH ESO TEL AIRM END"])
 am = (ams + ame) / 2.
 alt = float(f[0].header["HIERARCH ESO TEL ALT"])
 dec = float(f[0].header["DEC"])
-#print "Airmass:",ams,ame,am,1/math.cos(math.radians(90.-alt)),alt
+
 # find total number of rows
 totrows = 0
 try:
     for ccd in range(1, 33):
         totrows = totrows + int(f[ccd].header["naxis2"])
 except:
-    print sys.argv[1] + " seems to not have 32 CCDs?!"
+    print "{0} seems to not have 32 CCDs?!".format(sys.argv[1])
 numcol = len(f[1].columns)
 #print sys.argv[1],totrows,numcol
 
@@ -177,8 +160,8 @@ clin = f[1].header.cards
 for h in ("MAGZPT", "MAGZRR", "EXTINCT", "APCOR3", "MED_PA", "NEBULISD", "CROWDED", "APASSZPT", "APASSZRR", "APASSNUM"):
     newhdu.header.update(clin[h].key, clin[h].value, clin[h].comment)
 
-## Obtain ellipticity and seeing for each CCD append to header.
-## Calculate average value over whole field, append to header
+# Obtain ellipticity and seeing for each CCD append to header.
+# Calculate average value over whole field, append to header
 ellipticity = numpy.zeros((32))
 seeing = numpy.zeros((32))
 skylevel = numpy.zeros((32))
@@ -193,7 +176,6 @@ newhdu.header.update("SEEING", numpy.mean(seeing) * 0.21, comment="Average FWHM 
 newhdu.header.update("ELLIPTIC", numpy.mean(ellipticity), comment="Average ellipticity")
 newhdu.header.update("SKYLEVEL", numpy.median(skylevel), comment="Average sky level (counts/pixel)")
 newhdu.header.update("HISTORY", "created with convert.py v" + version)
-##
 
 hdulist = fits.HDUList([newhdu, newtab])
 # verify output table and save

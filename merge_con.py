@@ -24,10 +24,11 @@
 import os
 import os.path
 from astropy.io import fits
-
-# from multiprocessing import Pool
 from bandmerge.merge import process
 from IPython import parallel
+
+SCRIPTDIR = os.environ['SCRIPTDIR']
+VPHASDIR = os.environ['VPHASDIR']
 
 if os.uname()[1] == 'uhppc27.herts.ac.uk':
     scripts = '/media/Hitachi/v1.0/imapScripts/'

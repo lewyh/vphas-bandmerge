@@ -3,7 +3,7 @@
 #PBS -m abe                                                                     
 #PBS -l nodes=1:ppn=1                                                          
 #PBS -k oe                                                                      
-#PBS -q main                                                                
+#PBS -q cmain                                                                
 #PBS -l walltime=05:00:00                                                       
 
 echo ------------------------------------------------------
@@ -22,11 +22,10 @@ echo PBS: current home directory is $PBS_O_HOME
 echo PBS: PATH = $PBS_O_PATH
 echo ------------------------------------------------------
 
-export PYTHONPATH=/home/hfarnhill/epd-7.3-2-rh5-x86_64/lib/python2.7/
-export PYTHONHOME=/home/hfarnhill/epd-7.3-2-rh5-x86_64/
+export PYTHONPATH=$SCRIPTDIR:$PYTHONPATH
 
-cd /car-data/hfarnhill/vphas
-/home/hfarnhill/epd-7.3-2-rh5-x86_64/bin/python /home/hfarnhill/vphas-bandmerge/identifyOrphans.py
+cd $VPHASDIR
+python $SCRIPTDIR/identifyOrphans.py
 
 echo ------------------------------------------------------
 echo Job ends
