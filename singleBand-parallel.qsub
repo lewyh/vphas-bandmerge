@@ -23,7 +23,7 @@ echo PBS: PATH = $PBS_O_PATH
 echo ------------------------------------------------------
 
 export PYTHONPATH=$SCRIPTDIR:$PYTHONPATH
-print $PYTHONPATH
+echo $PYTHONPATH
 
 cd $VPHASDIR
 python $SCRIPTDIR/bandmerge/singleBand-parallel.py
