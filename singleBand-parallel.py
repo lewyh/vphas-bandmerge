@@ -24,7 +24,7 @@ remove = {}
 
 for f in os.listdir("{0}/single".format(VPHASDIR)):
     if f.endswith(".fits"):
-        fp = fits.open("{0}single/{1}".format(VPHASDIR, f))
+        fp = fits.open("{0}/single/{1}".format(VPHASDIR, f))
         remove[fp[0].header["CASUFILE"]] = 1
         fp.close()
 
