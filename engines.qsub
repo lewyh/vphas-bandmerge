@@ -1,0 +1,49 @@
+#!/bin/sh -f                                                                    
+#PBS -N bandmergeEngines                                                            
+#PBS -m abe                                                                     
+#PBS -l nodes=32:ppn=1,pmem=8gb 
+#PBS -k oe                                                                      
+#PBS -q cmain                                                               
+#PBS -l walltime=24:00:00
+NPROC=`cat ${PBS_NODEFILE} | wc -l`
+
+echo ------------------------------------------------------
+echo -n 'Job is running on node '; cat $PBS_NODEFILE
+echo ------------------------------------------------------
+echo PBS: qsub is running on $PBS_O_HOST
+echo PBS: originating queue is $PBS_O_QUEUE
+echo PBS: executing queue is $PBS_QUEUE
+echo NPROC: $NPROC
+echo PBS: working directory is $PBS_O_WORKDIR
+echo PBS: execution mode is $PBS_ENVIRONMENT
+echo PBS: job identifier is $PBS_JOBID
+echo PBS: job name is $PBS_JOBNAME
+echo PBS: node file is $PBS_NODEFILE
+echo PBS: array ID is $PBS_ARRAYID
+echo PBS: current home directory is $PBS_O_HOME
+echo PBS: PATH = $PBS_O_PATH
+echo ------------------------------------------------------
+
+#cd /stri-data/hfarnhill/iphas-qc/
+#git pull
+##export PYTHONPATH=/usr/lib64/python2.7/site-packages/mpich2:/soft/python/lib/python2.7/site-packages/:/soft/python/lib64/python2.7/site-packages:/usr/lib64/python2.7/site-packages/numpy/matrixlib/
+##export PYTHONPATH=$PYTHONPATH:/home/hfarnhill/my_python/lib64/python2.7/site-packages
+##export PYTHONPATH=$PYTHONPATH:/home/hfarnhill/my_python/lib/python2.7/site-packages
+##export PYTHONPATH=$PYTHONPATH:/soft/stsci_python_2.10/lib64/python
+##export PYTHONPATH=$PYTHONPATH:/home/hfarnhill/my_python/lib/python
+export PYTHONPATH=/home/hfarnhill/dev/
+export COMPLETENESSDIR=/car-data/hfarnhill/completeness/
+export IPHASQC=/stri-data/hfarnhill/iphas-qc/qcdata/iphas-qc.fits
+export IPHASDIR=/car-data/gb/iphas/
+#echo "About to launch python script..."
+#/home/hfarnhill/anaconda/bin/python /home/hfarnhill/completeness/assess.py
+
+echo "Initialising ipcluster..."
+/home/hfarnhill/anaconda/bin/ipcluster start --n=$NPROC --engines=MPI --profile=bandmerge --cluster-id=bandmerge
+
+echo "Shutting down ipcluster..."
+/home/hfarnhill/anaconda/bin/ipcluster stop --profile=bandmerge --cluster-id=bandmerge
+
+echo ------------------------------------------------------
+echo Job ends
+
