@@ -10,10 +10,10 @@ Environment variables needed:
 
 Required directory structure for VPHASDIR:
 * YYYYMM
-..* single/
-..* calib/
-..* catalogues/
-..* blacklist
+  * single/
+  * calib/
+  * catalogues/
+  * blacklist
 * single/
 * merge/
 * stats/
