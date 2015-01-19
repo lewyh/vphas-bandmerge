@@ -24,7 +24,6 @@ echo ------------------------------------------------------
 
 export PATH=$PYTHONDIR:$PATH
 export PYTHONPATH=$SCRIPTDIR:$PYTHONPATH
-echo $PYTHONPATH
 
 cd $VPHASDIR
 python $SCRIPTDIR/bandmerge/singleBand-parallel.py

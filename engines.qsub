@@ -24,6 +24,7 @@ echo PBS: current home directory is $PBS_O_HOME
 echo PBS: PATH = $PBS_O_PATH
 echo ------------------------------------------------------
 
+export PATH=$PYTHONDIR:$PATH
 export PYTHONPATH=$SCRIPTDIR:$PYTHONPATH
 
 echo "Initialising ipcluster..."

@@ -9,6 +9,7 @@ Prerequisites:
 * matplotlib, pandas & mpld3 (to generate HTML pages with plots)
 
 Environment variables needed:  
+**PYTHONDIR**: Path to python binaries (torque submission does not take aliases in .tcshrc)
 **SCRIPTDIR**: Path to the bandmerging scripts.  
 **VPHASDIR**: Directory in which VPHAS data is stored.  
 **VPHASWEBDIR**: Directory on web server to which bandmerged catalogues should be transferred.  

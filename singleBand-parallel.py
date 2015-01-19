@@ -7,6 +7,7 @@ from IPython import parallel
 
 SCRIPTDIR = os.environ['SCRIPTDIR']
 VPHASDIR = os.environ['VPHASDIR']
+HOME = os.environ['HOME']
 
 
 def convert(toconvert):
@@ -47,7 +48,7 @@ for d in sorted(os.listdir(VPHASDIR)):
 
 print(toconvert)
 
-MYCLUSTER = '~/.ipython/profile_bandmerge/security/ipcontroller-bandmerge-client.json'
+MYCLUSTER = '{0}/.ipython/profile_bandmerge/security/ipcontroller-bandmerge-client.json'.format(HOME)
 client = parallel.Client(MYCLUSTER)
 cluster = client[:]
 cluster.map(convert, toconvert)
