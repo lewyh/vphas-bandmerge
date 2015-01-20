@@ -17,7 +17,7 @@ def convert(toconvert):
     SCRIPTDIR = os.environ['SCRIPTDIR']
     d, f = toconvert
     print(toconvert)
-    subprocess.call("python {1}/convert.py {2}/{3}".format(python, scripts, d, f), shell=True)
+    subprocess.call("python {1}/bandmerge/convert.py {2}/{3}".format(python, scripts, d, f), shell=True)
     return
 
 

@@ -25,5 +25,23 @@ Required directory structure inside VPHASDIR:
 * ./merge/
 * ./stats/
 
+## Running scripts on stri-cluster
+
+After downloading relevant files to VPHASDIR with the directory structure above, and listing the 
+filenames that should not be processed in *blacklist*:
+
+`qsub engines.qsub`
+
+Wait for the iPython engines to start.
+ 
+`qsub singleband-parallel.qsub`
+
+The VPHAS fields will be converted to catalogues with magnitudes and fewer columns.
+
+`qsub merge_con.qsub`
+
+The single-band catalogues will be band-merged (first the red concatenations, then the blue).
+
+
 
 
