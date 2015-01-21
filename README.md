@@ -12,7 +12,8 @@ Environment variables needed:
 **PYTHONDIR**: Path to python binaries (torque submission does not take aliases in .tcshrc)
 **SCRIPTDIR**: Path to directory which contains a symlink ('bandmerge') to vphas-bandmerge.  
 **VPHASDIR**: Directory in which VPHAS data is stored.  
-**VPHASWEBDIR**: Directory on web server to which bandmerged catalogues should be transferred.  
+**VPHASWEBDIR**: Directory on web server to which bandmerged catalogues should be transferred.
+**STILTSDIR**: Directory in which STILTS jar file is stored.
 **XMATCH**: Cross-matching radius in arcseconds (typically 0.5).
 
 Required directory structure inside VPHASDIR:

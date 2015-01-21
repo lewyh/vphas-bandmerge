@@ -5,7 +5,6 @@ from astropy.io import fits
 from IPython import parallel
 
 
-SCRIPTDIR = os.environ['SCRIPTDIR']
 VPHASDIR = os.environ['VPHASDIR']
 HOME = os.environ['HOME']
 
@@ -17,7 +16,7 @@ def convert(toconvert):
     SCRIPTDIR = os.environ['SCRIPTDIR']
     d, f = toconvert
     print(toconvert)
-    subprocess.call("python {1}/bandmerge/convert.py {2}/{3}".format(python, scripts, d, f), shell=True)
+    subprocess.call("python {0}/bandmerge/convert.py {1}/{2}".format(SCRIPTDIR, d, f), shell=True)
     return
 
 

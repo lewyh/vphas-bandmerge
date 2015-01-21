@@ -1,5 +1,5 @@
 def ver():
-    version = "0.6 07.April.2014"
+    version = "0.7 20.January.2015"
     return version
 
 
@@ -26,8 +26,8 @@ def zpcorr(f, tmpn=None, script=None):
 def process(f, colour):
     import sys
 
-    sys.stdout = open("/car-data/hfarnhill/{0}.stdout".format(f), "w")
-    sys.stderr = open("/car-data/hfarnhill/{0}.stderr".format(f), "w")
+#    sys.stdout = open("/car-data/hfarnhill/{0}.stdout".format(f), "w")
+#    sys.stderr = open("/car-data/hfarnhill/{0}.stderr".format(f), "w")
 
     import os
     import tempfile
@@ -35,9 +35,13 @@ def process(f, colour):
     from bandmerge.merge import zpcorr, ver
     from astropy.io import fits
 
-    scripts = '/home/hfarnhill/vphas-bandmerge/'
-    stilts = "/home/hfarnhill/stilts/stilts.jar"
-    outfn = "/car-data/hfarnhill/vphas/merge/{0}.fits".format(f)
+    SCRIPTDIR = os.environ['SCRIPTDIR']
+    VPHASDIR = os.environ['VPHASDIR']
+    STILTSDIR = os.environ['STILTSDIR']
+
+    scripts = "{0}/bandmerge".format(SCRIPTDIR)
+    stilts = "{0}/stilts.jar".format(STILTSDIR)
+    outfn = "{0}/merge/{1}.fits".format(VPHASDIR, f)
     outtemp = "{0}.temp.fits".format(outfn.split(".")[0])
     if os.path.exists(outfn): return
     if colour == "red":
@@ -76,7 +80,7 @@ def process(f, colour):
     cmd = ["java", "-Xmx6144M", "-jar", stilts, "tmatchn", "matcher=sky", "params=0.5", "multimode=group",
            "nin={0}".format(nin)]
     for i in range(nin):
-        cmd.append("in{0}=/car-data/hfarnhill/vphas/single/{1}-{2}.fits".format((i + 1), f, filters[i]))
+        cmd.append("in{0}={1}/single/{2}-{3}.fits".format((i + 1), VPHASDIR, f, filters[i]))
         cmd.append("icmd{0}=select \"{1}<99\"".format((i + 1), letters[i]))
         cmd.append("join{0}=always".format(i + 1))
         cmd.append("values{0}=radiansToDegrees(RA) radiansToDegrees(Dec)".format(i + 1))
@@ -98,7 +102,7 @@ def process(f, colour):
         process(f, colour)
         return
     for i in range(nin):
-        single = fits.open("/car-data/hfarnhill/vphas/single/{0}-{1}.fits".format(f, filters[i]))
+        single = fits.open("{0}/single/{1}-{2}.fits".format(VPHASDIR, f, filters[i]))
         h_single = single[0].header
         # Add the five cards in base_keys to the header of extension #1 without any prefixes/HIERARCH
         # as this will allow Topcat to see them (when opened as FITS, but not FITS-PLUS)

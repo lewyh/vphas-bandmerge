@@ -22,12 +22,11 @@ echo PBS: current home directory is $PBS_O_HOME
 echo PBS: PATH = $PBS_O_PATH
 echo ------------------------------------------------------
 
-#export PYTHONPATH=/home/hfarnhill/epd-7.3-2-rh5-x86_64/lib/python2.7/
-#export PYTHONHOME=/home/hfarnhill/epd-7.3-2-rh5-x86_64/
-export PYTHONPATH=/home/hfarnhill/dev/
+export PATH=$PYTHONDIR:$PATH
+export PYTHONPATH=$SCRIPTDIR:$PYTHONPATH
 
-cd /car-data/hfarnhill/vphas
-/home/hfarnhill/anaconda/bin/python /home/hfarnhill/vphas-bandmerge/merge_con.py
+cd $VPHASDIR
+python $SCRIPTDIR/bandmerge/merge_con.py
 
 echo ------------------------------------------------------
 echo Job ends

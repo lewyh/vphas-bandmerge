@@ -27,22 +27,6 @@ from astropy.io import fits
 from bandmerge.merge import process
 from IPython import parallel
 
-SCRIPTDIR = os.environ['SCRIPTDIR']
-VPHASDIR = os.environ['VPHASDIR']
-
-if os.uname()[1] == 'uhppc27.herts.ac.uk':
-    scripts = '/media/Hitachi/v1.0/imapScripts/'
-    nproc = 2
-    stilts = "Scripts/stilts.jar"
-elif os.uname()[1].startswith('node') or os.uname()[1].startswith('sandbox'):
-    scripts = '/home/hfarnhill/vphas-bandmerge/'
-    nproc = 7  #8 comes dangerously close to using 24GB RAM
-    stilts = "/home/hfarnhill/stilts/stilts.jar"
-else:
-    nproc = 1
-    stilts = 'stilts.jar'
-
-
 def ver():
     version = "0.6 07.April.2014"
     return version
