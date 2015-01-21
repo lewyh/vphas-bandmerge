@@ -35,7 +35,7 @@ filenames that should not be processed in *blacklist*:
 
 Wait for the iPython engines to start.
  
-`qsub singleband-parallel.qsub`
+`qsub singleBand-parallel.qsub`
 
 The VPHAS fields will be converted to catalogues with magnitudes and fewer columns.
 
