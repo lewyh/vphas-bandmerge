@@ -27,8 +27,10 @@ from astropy.io import fits
 from bandmerge.merge import process
 from IPython import parallel
 
+HOME = os.environ['HOME']
+
 def ver():
-    version = "0.6 07.April.2014"
+    version = "0.7 22.January.2015"
     return version
 
 
@@ -96,7 +98,7 @@ for f in os.listdir("single"):
         if d[3] == "NB_659": rfields[d[0] + "-" + d[1] + "-" + d[2]] = 1
 
 
-MYCLUSTER = '/home/hfarnhill/.ipython/profile_bandmerge/security/ipcontroller-bandmerge-client.json'
+MYCLUSTER = '{0}/.ipython/profile_bandmerge/security/ipcontroller-bandmerge-client.json'.format(HOME)
 client = parallel.Client(MYCLUSTER)
 cluster = client[:]
 reds = ['red'] * len(rfields)

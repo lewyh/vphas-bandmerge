@@ -5,11 +5,13 @@ def ver():
 
 def zpcorr(f, tmpn=None, script=None):
     from astropy.io import fits
+    
+    VPHASDIR = os.environ['VPHASDIR']
 
-    ff = fits.open("/car-data/hfarnhill/vphas/single/{0}-r_SDSS-1.fits".format(f))
+    ff = fits.open("{0}/single/{1}-r_SDSS-1.fits".format(VPHASDIR, f))
     rzp = float(ff[0].header["MAGZPT"])
     ff.close()
-    ff = fits.open("/car-data/hfarnhill/vphas/single/{0}-NB_659-1.fits".format(f))
+    ff = fits.open("{0}/single/{1}-NB_659-1.fits".format(VPHASDIR, f))
     hzp = float(ff[0].header["MAGZPT"])
     ff.close()
     zpcorr = rzp - 3.01 - hzp
