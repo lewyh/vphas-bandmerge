@@ -5,7 +5,7 @@ def ver():
 
 def zpcorr(f, tmpn=None, script=None):
     from astropy.io import fits
-    
+
     VPHASDIR = os.environ['VPHASDIR']
 
     ff = fits.open("{0}/single/{1}-r_SDSS-1.fits".format(VPHASDIR, f))
@@ -28,8 +28,8 @@ def zpcorr(f, tmpn=None, script=None):
 def process(f, colour):
     import sys
 
-#    sys.stdout = open("/car-data/hfarnhill/{0}.stdout".format(f), "w")
-#    sys.stderr = open("/car-data/hfarnhill/{0}.stderr".format(f), "w")
+    # sys.stdout = open("/car-data/hfarnhill/{0}.stdout".format(f), "w")
+    #    sys.stderr = open("/car-data/hfarnhill/{0}.stderr".format(f), "w")
 
     import os
     import tempfile
@@ -40,6 +40,7 @@ def process(f, colour):
     SCRIPTDIR = os.environ['SCRIPTDIR']
     VPHASDIR = os.environ['VPHASDIR']
     STILTSDIR = os.environ['STILTSDIR']
+    XMATCH = os.environ['XMATCH']
 
     scripts = "{0}/bandmerge".format(SCRIPTDIR)
     stilts = "{0}/stilts.jar".format(STILTSDIR)
@@ -79,8 +80,8 @@ def process(f, colour):
             letters.append("{0}".format(i))
             cols.append("{0}_{1}".format(i, (j + 1)))
 
-    cmd = ["java", "-Xmx6144M", "-jar", stilts, "tmatchn", "matcher=sky", "params=0.5", "multimode=group",
-           "nin={0}".format(nin)]
+    cmd = ["java", "-Xmx6144M", "-jar", stilts, "tmatchn", "matcher=sky", "params={0}".format(XMATCH),
+           "multimode=group", "nin={0}".format(nin)]
     for i in range(nin):
         cmd.append("in{0}={1}/single/{2}-{3}.fits".format((i + 1), VPHASDIR, f, filters[i]))
         cmd.append("icmd{0}=select \"{1}<99\"".format((i + 1), letters[i]))
