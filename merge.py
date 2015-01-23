@@ -51,14 +51,14 @@ def process(f, colour):
         fh = tempfile.NamedTemporaryFile(suffix="_merge_con.cmd")
         tmpname = fh.name
         fh.close()
-        fh = open("{0}merge_con_red.cmd".format(scripts))
+        fh = open("{0}/merge_con_red.cmd".format(scripts))
         script = fh.readlines()
         fh.close()
         zpcorr(f, tmpname, script)
         filts = {"r": 2, "i": 2, "Ha": 3}
         order = ['r', 'i', 'Ha']
     elif colour == "blu":
-        tmpname = "{0}merge_con_blu.cmd".format(scripts)
+        tmpname = "{0}/merge_con_blu.cmd".format(scripts)
         print f
         date = int(f.split('-')[1])
         print date
