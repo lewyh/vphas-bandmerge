@@ -91,7 +91,7 @@ def process(f, colour):
     cmd.append("out={0}".format(outtemp))
     cmd.append("ocmd=@{0}".format(tmpname))
     print cmd
-    subprocess.call(cmd, cwd=os.getcwd(), stdout=sys.stdout, stderr=sys.stderr)
+    subprocess.call(cmd, cwd=os.getcwd())#, stdout=sys.stdout, stderr=sys.stderr)
     if colour == 'red':
         os.remove(tmpname)
 
