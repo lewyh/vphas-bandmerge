@@ -5,6 +5,7 @@ def ver():
 
 def zpcorr(f, tmpn=None, script=None):
     from astropy.io import fits
+    import os
 
     VPHASDIR = os.environ['VPHASDIR']
 
