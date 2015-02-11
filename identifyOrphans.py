@@ -20,10 +20,17 @@ else:
     python = 'python'
     nproc = 1
 
-#fieldcount = {}
+
+# Add directory prefixes here if their blacklist has already been compiled.
+ignore = ['000', '2011', '2012', '2013',
+          '201401', '201402', '201403', '201404', '201405', '201406']
+
 for d in sorted(os.listdir(basedir)):
-    if d.startswith('000') or d.startswith('2011') or d.startswith('2012') or d.startswith('2013') or d.startswith('201401') or  d.startswith('201402') or d.startswith('201403'):
-        continue
+    for txt in ignore:
+        if d.startswith(txt):
+            continue
+#    if d.startswith('000') or d.startswith('2011') or d.startswith('2012') or d.startswith('2013') or d.startswith('201401') or  d.startswith('201402') or d.startswith('201403'):
+#        continue
     if re.match("[0-9]{6}",d)!=None:
         path = "{0}{1}/{2}".format(basedir, d, subdir)
         blacklistfn = open("{0}{1}/blacklist".format(basedir, d),'r')

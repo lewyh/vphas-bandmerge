@@ -25,7 +25,7 @@ echo ------------------------------------------------------
 export PYTHONPATH=$SCRIPTDIR:$PYTHONPATH
 
 cd $VPHASDIR
-python $SCRIPTDIR/identifyOrphans.py
+python $SCRIPTDIR/bandmerge/identifyOrphans.py
 
 echo ------------------------------------------------------
 echo Job ends
